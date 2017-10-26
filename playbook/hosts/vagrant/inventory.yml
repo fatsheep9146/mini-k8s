@@ -1,8 +1,8 @@
 [master]
-node0 ansible_ssh_host=172.30.30.10 ansible_user=vagrant ansible_ssh_pass=vagrant ansible_connection=ssh
+node0 ansible_ssh_host=172.30.30.10 ansible_user=vagrant ansible_ssh_pass=vagrant ansible_connection=ssh ansible_ssh_extra_args="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
 [worker]
-node1 ansible_ssh_host=172.30.30.11 ansible_user=vagrant ansible_ssh_pass=vagrant ansible_connection=ssh
+node1 ansible_ssh_host=172.30.30.11 ansible_user=vagrant ansible_ssh_pass=vagrant ansible_connection=ssh ansible_ssh_extra_args="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
 [kubectl]
 node0
