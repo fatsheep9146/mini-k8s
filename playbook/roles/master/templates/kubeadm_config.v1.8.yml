@@ -1,0 +1,49 @@
+apiVersion: kubeadm.k8s.io/v1alpha1
+kind: MasterConfiguration
+api:
+{% if kubernetes_apiserver_expose_interface == "" %}
+  advertiseAddress: "{{ hostvars[ inventory_hostname ]['ansible_default_ipv4']['address'] }}"
+{% else %}
+  advertiseAddress: "{{ hostvars[ inventory_hostname ][ kubernetes_apiserver_interface_name ]['ipv4']['address'] }}"
+{% endif %}
+etcd:
+  endpoints:
+{% if kubernetes_apiserver_expose_interface == "" %}
+  - http://{{ hostvars[ inventory_hostname ]['ansible_default_ipv4']['address'] }}:2379
+{% else %}
+  - http://{{ hostvars[ inventory_hostname ][ kubernetes_apiserver_interface_name ]['ipv4']['address'] }}:2379
+{% endif %}
+networking:
+  dnsDomain: "{{ kubernetes_dns_domain }}"
+  serviceSubnet: "{{ kubernetes_service_subnet }}"
+  podSubnet: "{{ kubernetes_pod_subnet }}"
+kubernetesVersion: "{{ kubernetes_version }}"
+token: "{{ kubernetes_token }}"
+imageRepository: "{{ kube_repo_prefix }}"
+apiServerExtraArgs:
+  v: "4"
+{% for host in groups['master'] %}
+{% if loop.last %}
+  apiserver-count: "{{loop.length}}"
+{% endif %}
+{% endfor %}
+{% if kubernetes_apiserver_expose_interface == "" %}
+  insecure-bind-address: "{{ hostvars[ inventory_hostname ]['ansible_default_ipv4']['address'] }}"
+{% else %}
+  insecure-bind-address: "{{ hostvars[ inventory_hostname ][ kubernetes_apiserver_interface_name ]['ipv4']['address'] }}"
+{% endif %}
+  insecure-port: "8686"
+controllerManagerExtraArgs:
+  v: "4"
+schedulerExtraArgs:
+  v: "4"
+apiServerCertSANs:
+{% for host in groups['master'] %}
+{% if kubernetes_apiserver_expose_interface == "" %}
+  - "{{ hostvars[ host ]['ansible_default_ipv4']['address'] }}"
+{% else %}
+  - "{{ hostvars[ host ][ kubernetes_apiserver_interface_name ]['ipv4']['address'] }}"
+{% endif %}
+{% endfor %}
+  - "{{ public_ip }}"
+

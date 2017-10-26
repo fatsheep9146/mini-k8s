@@ -1,0 +1,61 @@
+
+## ==== Configuration for docker ==========
+
+docker_need_install: "true"
+docker_version: "1.12.6"
+docker_storage_driver: "aufs"
+# docker_devicemapper_device: "/dev/sdc1"
+
+## ==== Configuration for ceph ============
+
+ceph_need_install: "true"
+ceph_version: "11.2.1-1xenial"
+
+## ==== Configuration for kubernetes ===========
+
+## variable for k8s_binary_install
+kubernetes_binary_install_version: 1.7.3-01
+
+## variable for kubelet
+# kubelet_bindto_interface: ""
+# kubelet_cluster_dns_ip: 10.96.0.10
+
+## variable for master 
+kubernetes_dns_domain: cluster.local
+kubernetes_service_subnet: 10.96.0.0/16
+kubernetes_pod_subnet: 192.168.0.0/16 
+kubernetes_version: v1.7.3
+kubelet_version: "{{ kubernetes_version }}"
+kubernetes_token: f98296.fc80ebc35fd0aa29
+# kubernetes_apiserver_expose_interface: "" 
+kube_repo_prefix: index-dev.qiniu.io/kelibrary 
+
+## ==== Configuration for network ==========
+
+network_need: "true"
+network_mode: "calico"
+# network_interface: "" 
+network_repo_prefix: index-dev.qiniu.io/kelibrary 
+network_calico_mtu: 1450
+network_calico_ipv4pool_cidr: 192.168.0.0/16
+network_calico_ipv4pool_ipip: always
+
+## ==== Configuration for helm and tiller =============
+
+helm_need_install: "true"
+helm_version: 2.4.2
+tiller_need_install: "true"
+tiller_version: "{{ helm_version }}" 
+
+## ==== Configuration for node_exporter ==============
+## If true, the node_exporter will be executed as binary.
+node_exporter_is_binary: "true"
+
+## ==== Configuration for kube-dns  ==================
+## If true, the kube dns will be set as hostNetwork: true
+kubedns_hostnetwork_enable: "true"
+
+## ==== Configuration for public ip ==================
+public_ip: 
+
+

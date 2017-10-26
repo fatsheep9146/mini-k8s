@@ -1,0 +1,30 @@
+- name: check that whether the docker is installed
+  shell: which docker
+  register: is_exist 
+  ignore_errors: True
+
+# - name: obtain the docker server version 
+#   shell: 'docker version --format {{.Server.Version}}' 
+#   register: server_version_result
+#   when: is_exist.rc == 0
+  
+# - name: check if the existing docker server version is same as user wants
+#   assert: 
+#     that:
+#       - "server_version_result.stdout == {{ docker_version }}"
+#     msg: "the existing docker server version is {{server_version_result.stdout}}, which is not same as you expected: {{docker_version}}"
+#   when: is_exist.rc == 0
+
+# - name: obtain the docker client version 
+#   shell: docker version --format {{.Client.Version}} 
+#   register: client_version_result
+#   when: is_exist.rc == 0
+  
+# - name: check if the existing docker client version is same as user wants
+#   assert: 
+#     that:
+#       - "client_version_result.stdout == {{ docker_version }}"
+#     msg: "the existing docker client version is {{client_version_result.stdout}}, which is not same as you expected: {{docker_version}}"
+#   when: is_exist.rc == 0
+
+  

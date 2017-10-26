@@ -1,0 +1,30 @@
+docker_version: "1.12.6"
+docker_need_install: "true"
+docker_storage_driver: "aufs"
+
+ceph_need_install: "false"
+
+kube_repo_prefix: registry.cn-hangzhou.aliyuncs.com/google-containers 
+
+kubelet_bindto_interface: "enp0s8"
+
+kubernetes_dns_domain: cluster.local
+kubernetes_service_subnet: 10.96.0.0/16
+kubernetes_pod_subnet: 192.168.0.0/16 
+kubernetes_binary_install_version: 1.7.5-00
+kubernetes_version: v1.7.5
+kubelet_version: "{{ kubernetes_version }}"
+kubernetes_token: f98296.fc80ebc35fd0aa29
+kubernetes_apiserver_expose_interface: enp0s8
+kubernetes_apiserver_interface_name: ansible_{{kubernetes_apiserver_expose_interface}}
+kubernetes_binary_install_mode: "apt"
+
+network_need: "true"
+network_mode: "calico"
+network_interface: enp0s8
+network_repo_prefix: registry.cn-hangzhou.aliyuncs.com/calico_containers 
+network_calico_mtu: 1450
+network_calico_ipv4pool_cidr: "{{ kubernetes_pod_subnet }}"  
+network_calico_ipv4pool_ipip: always
+
+public_ip: "172.30.30.10"

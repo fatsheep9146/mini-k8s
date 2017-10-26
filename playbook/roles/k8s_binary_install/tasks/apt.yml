@@ -1,0 +1,28 @@
+- name: template GPG file to the machine
+  template:
+    src: ustc.gpg
+    dest: /tmp/ustc.gpg
+  
+- name: add GPG key for utsc apt source
+  apt_key:
+    state: present
+    file: /tmp/ustc.gpg
+
+- name: add source for ustc apt source 
+  shell: echo "deb https://mirrors.ustc.edu.cn/kubernetes/apt/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list
+  
+- name: check if the neccessary packages are installed
+  shell: apt-cache show {{ item }}
+  register: pack_check 
+  ignore_errors: true
+  with_items:
+    - "{{ kubernetes_binaries_name }}" 
+
+- name: apt-get update
+  shell: apt-get update
+
+- name: install all neccessary packages 
+  apt:
+    name: "{{ item }}" 
+  with_items:
+    - "{{ kubernetes_binaries_name }}"

@@ -1,0 +1,17 @@
+# The most default value of docker 
+
+# docker client and server's version, we assume that they must be same
+docker_version: "1.12.0" 
+
+# the mode of installing the docker, there come's the four ways
+# "remote": install through yum or apt package management according to different operating system
+# "local": install through rpm or deb package
+docker_install_mode: "remote"
+
+# in case you want to install through rpm, deb, this url is used to download the rpm or deb file including all its dependencies
+docker_download_url: "xxxx"
+
+docker_storage_driver: "aufs"
+
+docker_devicemapper_device: "/dev/sdb" 
+

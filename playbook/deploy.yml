@@ -1,0 +1,10 @@
+- include: common.yml common_hosts=all 
+
+- include: master.yml
+
+- include: add.yml add_hosts=worker
+
+- include: network.yml network_hosts=master 
+  when: network_need == "true"
+
+

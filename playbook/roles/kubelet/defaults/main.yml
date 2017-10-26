@@ -1,0 +1,19 @@
+# The most default variable of kubelet
+
+kubelet_bindto_interface: ""
+
+kubelet_bindto_interface_name: "ansible_{{ kubelet_bindto_interface }}"
+
+kubelet_cluster_dns_ip: 10.96.0.10
+
+kubelet_dns_domain: cluster.local
+
+kubelet_cgroup_driver: cgroupfs
+
+kubelet_config_path: /etc/kubernetes/kubelet.conf
+
+kubelet_pod_infra_container_image: index-dev.qiniu.io/kelibrary/pause-amd64:3.0
+
+debian_systemd_dir: /etc/systemd/system
+
+centos_systemd_dir: /lib/systemd/system

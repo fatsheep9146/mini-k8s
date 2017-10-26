@@ -1,0 +1,11 @@
+{
+  "registry-mirrors": ["https://j7wfwlch.mirror.aliyuncs.com"],
+  "live-restore": true,
+  "icc": false,
+  "storage-driver": "aufs",
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "512m",
+    "max-file": "3"
+  }
+}

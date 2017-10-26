@@ -1,0 +1,74 @@
+# Step 1: apt-get update and install apt-transport-https ca-certificates
+
+- name: apt-get update
+  apt:
+    update_cache: yes
+  become: yes
+
+- name: apt-get install apt-transport-https ca-certificates
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - software-properties-common
+  become: yes
+
+# Step 2: Add the new GPG key
+
+- name: add new gpg key
+  apt_key: 
+    keyserver: hkp://pgp.mit.edu:80
+    id: 58118E89F3A912897C070ADBF76221572C52609D
+  become: yes
+
+# Step 3: Set up the stable repository
+
+- name: set up the stable repository
+  apt_repository:
+    repo: deb [arch=amd64] http://mirrors.aliyun.com/docker-engine/apt/repo/ ubuntu-{{ansible_lsb["codename"]}} main
+    state: present
+  become: yes
+
+# Step 4: Install docker of specific version
+  
+- name: install docker in specfic version for 1.12.4 ~ 1.13.1  
+  apt:
+    name: docker-engine={{docker_version}}-0~ubuntu-{{ansible_lsb["codename"]}}
+    state: present
+  become: yes
+  when: docker_version == "1.12.4" or
+        docker_version == "1.12.5" or
+        docker_version == "1.12.6" or
+        docker_version == "1.13.0" or
+        docker_version == "1.13.1" 
+ 
+
+- name: install docker in specfic version for 1.11.0 ~ 1.12.3  
+  apt:
+    name: docker-engine={{docker_version}}-0~{{ansible_lsb["codename"]}}
+    state: present
+  become: yes
+  when: docker_version == "1.11.0" or
+        docker_version == "1.11.1" or
+        docker_version == "1.11.2" or
+        docker_version == "1.12.0" or
+        docker_version == "1.12.1" or
+        docker_version == "1.12.2" or
+        docker_version == "1.12.3" 
+        
+    
+- name: install docker in specfic version for 17.03.0 and above    
+  apt:
+    name: docker-engine={{docker_version}}-0~ubuntu-{{ansible_lsb["codename"]}}
+    state: present
+  become: yes
+  when: docker_version == "17.03.0~ce" or
+        docker_version == "17.03.1~ce" or
+        docker_version == "17.04.0~ce" or
+        docker_version == "17.05.0~ce" 
+
+
+ 

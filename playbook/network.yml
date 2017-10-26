@@ -1,0 +1,10 @@
+# TODO
+# In this play, the network calico.yml.j2 has used the facts from the group etcd, but the play is only needed to be executed on one machine
+# So I should find a way for the play for one host to force ansible to get facts from other group.
+
+- name: deploy network
+  hosts: "{{ network_hosts }}" 
+  become_user: root 
+  become: yes
+  roles:
+    - network

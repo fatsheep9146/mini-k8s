@@ -1,0 +1,2 @@
+- include: apt.yml
+  when: kubernetes_binary_install_mode == "apt"

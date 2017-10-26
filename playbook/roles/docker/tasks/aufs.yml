@@ -1,0 +1,10 @@
+- name: stop the docker service
+  service:
+    name: docker
+    state: stopped
+
+- name: template the daemon.json to /etc/docker/daemon.json
+  template:
+    src: aufs_daemon.json
+    dest: /etc/docker/daemon.json
+  become: yes

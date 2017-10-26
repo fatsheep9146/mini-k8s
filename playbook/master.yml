@@ -1,0 +1,7 @@
+- name: deploy master operations
+  hosts: master
+  become: yes
+  become_user: root 
+  roles:
+    - master
+     

@@ -1,0 +1,15 @@
+---
+# common configuration operations for all nodes in the cluster
+# 1. modify the configuration of operating system according to the operating system.
+# 2. install docker if the server does not have docker installed.
+# 3. install neccessary kubernetes binary to server, including kubelet, kubeadm, kubectl
+# 4. modify the configuration fo kubelet and restart the kubelet 
+
+- name: common operations for production environment
+  hosts: "{{ common_hosts }}"
+  become: yes
+  become_user: root 
+  roles:
+    - { role: docker, when: docker_need_install is not defined or docker_need_install == "true", tags: ['docker']} 
+    - k8s_binary_install
+    - kubelet

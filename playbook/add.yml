@@ -1,0 +1,8 @@
+   
+- name: join this node into kubernetes cluster
+  hosts: "{{ add_hosts }}" 
+  become_user: root
+  become: yes
+  tasks:
+    - name: kubeadm join the kubernetes cluster
+      shell: kubeadm join --token {{ kubernetes_token }} {{ master_ip }}:{{ master_port }}

@@ -1,0 +1,11 @@
+- include: check.yml
+
+- include: install.yml
+  when: is_exist is undefined or is_exist.rc != 0 
+
+- include: aufs.yml
+  when: docker_storage_driver == "aufs"
+
+- include: start.yml
+
+ 

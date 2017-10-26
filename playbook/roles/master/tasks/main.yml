@@ -1,0 +1,38 @@
+
+- name: create directory to store the kubeadm config file
+  become_user: root
+  file:
+    path: /etc/kubernetes 
+    state: directory
+
+- name: copy the kubeadm config to machine
+  become_user: root
+  template: src=kubeadm_config.{{ kubernetes_version | regex_search('(v[0-9]+\.[0-9]+)') }}.yml dest=/etc/kubernetes/kubeadm_config.yml 
+ 
+- name: create directory to store the etcd static pod file
+  become_user: root
+  file: 
+    path: /etc/kubernetes/manifests
+    state: directory
+
+- name: copy the etcd config file to manifests for kubelet
+  become_user: root
+  template: src=etcd.yml.j2 dest=/etc/kubernetes/manifests/etcd.yml
+
+- name: deploy the master node
+  become_user: root
+  shell: "KUBE_REPO_PREFIX={{ kube_repo_prefix }} kubeadm init --config=/etc/kubernetes/kubeadm_config.yml --skip-preflight-checks" 
+  ignore_errors: True
+
+- name: create neccessary cluster-role binding 
+  shell: kubectl --kubeconfig=/etc/kubernetes/admin.conf create clusterrolebinding add-on-cluster-admin --clusterrole=cluster-admin --serviceaccount=kube-system:default
+  become: yes
+  run_once: yes
+
+- name: move the admin.conf file to /root/.kube
+  shell: cp /etc/kubernetes/admin.conf /root/.kube/
+  become_user: root
+
+- name: rename the admin.conf to config
+  shell: mv /root/.kube/admin.conf /root/.kube/config
+  become_user: root

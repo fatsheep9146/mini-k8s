@@ -1,0 +1,21 @@
+# kubernetes related binary version, kubeadm, kubelet, kubectl
+
+kubernetes_binary_install_version: 1.7.0-00
+
+# kubernetes related binary install mode
+# "direct_download": download the neccessary packages from remote url, and use dpkg or rpm to install
+# "package_manage": use the package manage system like apt, yum to install
+
+kubernetes_binary_install_mode: "direct_download"
+
+kubernetes_binaries_name:
+  - socat
+  - ebtables
+  - kubernetes-cni
+  - kubelet={{kubernetes_binary_install_version}}
+  - kubectl={{kubernetes_binary_install_version}}
+  - kubeadm={{kubernetes_binary_install_version}}
+
+
+
+ 

@@ -1,0 +1,8 @@
+- include: check.yml check_hosts=join
+
+- include: common.yml common_hosts=join 
+
+- include: add.yml add_hosts=join
+      
+
+

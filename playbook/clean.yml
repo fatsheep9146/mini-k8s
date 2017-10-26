@@ -1,0 +1,12 @@
+- name: clean off the enviroment
+  hosts: all
+  become_user: root 
+  become: yes
+  tasks:
+    - name: kubeadm reset
+      become_user: root
+      shell: "sudo kubeadm reset"
+    - name: clean the etcd
+      become_user: root
+      shell: "sudo rm -rf /var/lib/etcd/*"
+      ignore_errors: true

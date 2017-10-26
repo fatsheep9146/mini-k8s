@@ -1,0 +1,10 @@
+network_mode: "calico"
+network_interface: ""
+network_interface_name: ansible_{{network_interface}} 
+network_repo_prefix: index-dev.qiniu.io/kelibrary
+
+network_calico_mtu: 1450
+network_calico_ipv4pool_cidr: 192.168.0.0/16
+network_calico_ipv4pool_ipip: always
+
+ 

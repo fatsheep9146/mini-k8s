@@ -1,0 +1,17 @@
+- name: mkdir directory to store the network yaml file
+  become_user: root
+  file: 
+    path: /etc/kubernetes/network
+    state: directory
+  run_once: true
+
+- name: template the network config file 
+  become_user: root
+  template: src={{network_mode}}.yml.j2 dest=/etc/kubernetes/network/{{ network_mode }}.yml
+  run_once: true
+
+- name: deploy the network
+  become_user: root 
+  shell: "kubectl --kubeconfig=/etc/kubernetes/admin.conf create -f /etc/kubernetes/network/{{ network_mode }}.yml"
+  run_once: true
+
