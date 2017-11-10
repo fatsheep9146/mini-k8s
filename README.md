@@ -19,9 +19,9 @@ In order to use this playbook, you should finish following initializations:
 
 Three softwares should be installed
 
-vagrant: 1.9.2
-virtualbox: 5.1.18
-ansible: 2.2.0
+- vagrant: 1.9.2
+- virtualbox: 5.1.18
+- ansible: 2.2.0
 
 ### 2. Download ubuntu 16.04 vagrant box 
 
